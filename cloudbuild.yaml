@@ -1,0 +1,14 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/weather-api",
+        "-f",
+        "backend/Dockerfile",
+        "backend",
+      ]
+
+images:
+  - "gcr.io/$PROJECT_ID/weather-api"
