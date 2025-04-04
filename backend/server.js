@@ -21,6 +21,10 @@ const LogSchema = new mongoose.Schema({
 
 const Log = mongoose.model("Log", LogSchema);
 
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 app.get("/api/places", async (req, res) => {
   try {
     const response = await axios.get("https://api.meteo.lt/v1/places");
