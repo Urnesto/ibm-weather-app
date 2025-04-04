@@ -16,6 +16,7 @@ mongoose
   })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
+console.log("Mongo URI:", process.env.MONGO_URI);
 
 const LogSchema = new mongoose.Schema({
   cityName: String,
