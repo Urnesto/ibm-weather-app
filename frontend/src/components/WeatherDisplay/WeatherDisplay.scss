@@ -1,0 +1,437 @@
+.weather-display {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  color: #161616;
+
+  &.is-loading {
+    .weather-display__left,
+    .weather-display__right {
+      filter: blur(2px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .weather-display__chart {
+      background-color: #e0e0e0;
+
+      .weather-display__chart-line {
+        background-color: #a8a8a8;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+
+      .weather-display__chart-label {
+        color: #a8a8a8;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+    }
+
+    .weather-display__temp-block {
+      display: flex;
+      flex-wrap: wrap; /* enables line wrapping */
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      /* The container holding icon + temperature */
+      > div:first-child {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        /* you can also apply any widths or other spacing if needed */
+      }
+
+      .weather-display__icon {
+        font-size: 3rem;
+        text-align: center;
+      }
+
+      .weather-display__temp-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      .weather-display__temp-unit {
+        font-size: 1.25rem;
+        /* keep it on the same line as the icon + temp, unless wrapped by flex */
+      }
+
+      .weather-display__feels-like {
+        flex-basis: 100%; /* forces this element to a new line */
+        text-align: center;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+
+  &.skeleton {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    .weather-display__left,
+    .weather-display__right {
+      pointer-events: none;
+      width: 48%;
+    }
+
+    .weather-display__datetime {
+      width: 150px;
+      height: 16px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      color: transparent;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    .weather-display__temp-block {
+      .weather-display__icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 4px;
+        color: transparent;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+
+      .weather-display__temp-value,
+      .weather-display__temp-unit {
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        color: transparent;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+
+      .weather-display__temp-value {
+        width: 80px;
+        height: 48px;
+      }
+
+      .weather-display__temp-unit {
+        width: 30px;
+        height: 20px;
+      }
+    }
+
+    .weather-display__stat {
+      label {
+        width: 70px;
+        height: 16px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        color: transparent;
+        display: block;
+        margin-bottom: 0.25rem;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+
+      &::after {
+        content: "";
+        width: 50px;
+        height: 16px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        display: block;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+    }
+
+    .weather-display__title {
+      width: 100px;
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      color: transparent;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    .weather-display__chart {
+      background-color: #f4f4f4;
+
+      .weather-display__chart-line,
+      .weather-display__chart-label {
+        background-color: #e0e0e0;
+        color: transparent;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+
+      .weather-display__chart-label {
+        width: 80px;
+        height: 24px;
+        border-radius: 4px;
+      }
+    }
+
+    .weather-display__forecast-day {
+      background-color: #f4f4f4;
+      display: flex;
+      justify-items: center;
+      align-items: center;
+
+      .weather-display__day-label,
+      .weather-display__day-icon,
+      .weather-display__day-humidity,
+      .weather-display__day-temp {
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        color: transparent;
+        margin: 0.5rem auto;
+        animation: pulse 1.5s infinite ease-in-out;
+      }
+
+      .weather-display__day-label {
+        width: 60%;
+        height: 16px;
+      }
+
+      .weather-display__day-icon {
+        width: 24px;
+        height: 24px;
+        margin: 0.5rem auto;
+      }
+
+      .weather-display__day-humidity,
+      .weather-display__day-temp {
+        width: 70%;
+        height: 12px;
+      }
+    }
+    @media (min-width: 768px) {
+      flex-direction: column;
+      padding: 2rem;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  &__left {
+    flex: 1;
+  }
+
+  &__location {
+    margin-bottom: 1rem;
+  }
+
+  &__location-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: #161616;
+  }
+
+  &__datetime {
+    font-size: 0.875rem;
+    color: #5a5a5a;
+    margin: 0;
+  }
+
+  &__separator {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  &__temp-block {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #161616;
+  }
+
+  &__icon {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  &__temp-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #161616;
+
+    @media (min-width: 768px) {
+      font-size: 3rem;
+    }
+  }
+
+  &__temp-unit {
+    font-size: 1.25rem;
+    color: #161616;
+  }
+
+  &__condition-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: #161616;
+  }
+
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+      gap: 2rem;
+    }
+  }
+
+  &__stat {
+    background-color: #f4f4f4;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #3a3a3a;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #525252;
+    }
+  }
+
+  &__right {
+    flex: 1;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #161616;
+  }
+
+  &__chart {
+    background-color: #eaf3ff;
+    height: 150px;
+    border-radius: 0.25rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+
+    @media (min-width: 768px) {
+      height: 160px;
+      margin-bottom: 2rem;
+    }
+
+    &-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__chart-line {
+    width: 80%;
+    height: 2px;
+    background-color: #0f62fe;
+    position: absolute;
+    bottom: 40px;
+
+    @media (min-width: 768px) {
+      bottom: 50px;
+    }
+  }
+
+  &__chart-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0f62fe;
+    position: absolute;
+    top: 30px;
+
+    @media (min-width: 768px) {
+      top: 40px;
+    }
+  }
+
+  &__forecast {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+
+  &__forecast-day {
+    text-align: center;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #161616;
+
+    &.is-active {
+      background-color: #0f62fe;
+      color: #fff;
+    }
+  }
+
+  &__day-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+
+    @media (min-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__day-icon {
+    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
+  }
+
+  &__day-humidity,
+  &__day-temp {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+  .weather-display__loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    z-index: 10;
+  }
+}

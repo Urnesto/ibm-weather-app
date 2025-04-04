@@ -1,0 +1,17 @@
+.top-cities {
+  margin-top: 1rem;
+  color: #5a5a5a;
+
+  &__title {
+    margin-bottom: 0.5rem;
+  }
+
+  &__tags {
+    margin-top: 0.5rem;
+  }
+
+  &__tag {
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+}
