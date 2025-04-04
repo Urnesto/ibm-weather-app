@@ -75,7 +75,7 @@ app.post("/api/log", async (req, res) => {
 // endpoint to get all logs from DB
 app.get("/api/logs", async (req, res) => {
   try {
-    const logs = await Log.find().sort({ timestamp: -1 }); // Get all logs, sorted by timestamp (newest first)
+    const logs = await Log.find().sort({ timestamp: -1 });
     res.json(logs);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch logs" });
