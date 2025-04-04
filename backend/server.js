@@ -9,14 +9,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+mongoose;
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI, {})
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
-console.log("Mongo URI:", process.env.MONGO_URI);
 
 const LogSchema = new mongoose.Schema({
   cityName: String,
