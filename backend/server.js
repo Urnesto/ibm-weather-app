@@ -9,8 +9,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-//I committed all the code with the MongoDB connection because it didn't work on my AWS instance. When I try to make a POST request to /log, I get a 404 error. But on my local machine, it saves all the data to the DB perfectly
-
 mongoose
   .connect(process.env.MONGO_URI, {})
   .then(() => console.log("Connected to MongoDB"))
