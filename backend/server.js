@@ -11,17 +11,17 @@ app.use(bodyParser.json());
 
 //I committed all the code with the MongoDB connection because it didn't work on my AWS instance. When I try to make a POST request to /log, I get a 404 error. But on my local machine, it saves all the data to the DB perfectly
 
-// mongoose
-//   .connect(process.env.MONGO_URI, {})
-//   .then(() => console.log("Connected to MongoDB"))
-//   .catch((err) => console.error("MongoDB connection error:", err));
+mongoose
+  .connect(process.env.MONGO_URI, {})
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
-// const LogSchema = new mongoose.Schema({
-//   cityName: String,
-//   timestamp: { type: Date, default: Date.now },
-// });
+const LogSchema = new mongoose.Schema({
+  cityName: String,
+  timestamp: { type: Date, default: Date.now },
+});
 
-// const Log = mongoose.model("Log", LogSchema);
+const Log = mongoose.model("Log", LogSchema);
 
 app.get("/", (req, res) => {
   res.send("Server is running!");
@@ -62,8 +62,8 @@ app.post("/api/log", async (req, res) => {
 
   try {
     // Create new log entry in MongoDB
-    // const log = new Log({ cityName });
-    // await log.save();
+    const log = new Log({ cityName });
+    await log.save();
 
     const timestamp = new Date().toISOString();
     console.log(`[${timestamp}] City selected: ${cityName}`);
@@ -75,14 +75,14 @@ app.post("/api/log", async (req, res) => {
 });
 
 // endpoint to get all logs from DB
-// app.get("/api/logs", async (req, res) => {
-//   try {
-//     const logs = await Log.find().sort({ timestamp: -1 });
-//     res.json(logs);
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to fetch logs" });
-//   }
-// });
+app.get("/api/logs", async (req, res) => {
+  try {
+    const logs = await Log.find().sort({ timestamp: -1 });
+    res.json(logs);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch logs" });
+  }
+});
 
 app.listen(process.env.PORT || 8080, () => {
   console.log("Weather api healthy", process.env.PORT || 8080);
