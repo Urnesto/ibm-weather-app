@@ -51,6 +51,28 @@ A full-stack weather forecasting app built with **React (TypeScript + Vite)** on
 ---
 
 ## 📁 Project Structure
+# Frontend 
+
+ibm-weather-app/
+└── frontend/
+
+    ├── src/
+    │   ├── api/
+    │   ├── assets/
+    │   ├── components/
+    │   │   ├── CitySelector/
+    │   │   ├── TopCities/
+    │   │   ├── WeatherDisplay/
+    │   │   └── WeatherLayout/
+    │   ├── hooks/
+    │   └── types/
+
+    ├── .env.development
+    ├── .env.production
+    ├── index.html
+    ├── package.json
+    ├── tsconfig.json
+    └── vite.config.ts
 
 ## Installation
 
