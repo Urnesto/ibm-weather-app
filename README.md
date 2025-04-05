@@ -27,6 +27,8 @@ A full-stack weather forecasting app built with **React (TypeScript + Vite)** on
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [Frontend Components](#frontend-components)
+- [License](#License)
+- [Author](#Author)
 
 ---
 
@@ -222,3 +224,12 @@ The backend serves as a proxy to overcome CORS limitations with the external API
 
 - A search bar that allows the user to search for a city.
 - The cities are fetched from the backend.
+
+### License
+
+MIT License. Feel free to fork and build upon it!
+
+### Author
+
+Made by Ernest Rimkevicius
+
