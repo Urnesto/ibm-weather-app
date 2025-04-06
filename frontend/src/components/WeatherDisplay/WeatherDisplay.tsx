@@ -57,6 +57,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ city }) => {
         totalPrecipitation: null,
         humidity: null,
         currentWeatherCode: null,
+        feelsLikeTemperature: null,
         forecasts: [],
         locationName: '',
     });
@@ -81,6 +82,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ city }) => {
                     windDirection: firstTimestamp.windDirection,
                     totalPrecipitation: firstTimestamp.totalPrecipitation,
                     currentWeatherCode: firstTimestamp.conditionCode,
+                    feelsLikeTemperature: firstTimestamp.feelsLikeTemperature,
                     forecasts: dailyForecasts,
                     locationName: data.place?.name || '',
                 });
@@ -97,6 +99,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ city }) => {
                     totalPrecipitation: null,
                     humidity: null,
                     currentWeatherCode: null,
+                    feelsLikeTemperature: null,
                     forecasts: [],
                     locationName: '',
                 });
@@ -216,18 +219,37 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ city }) => {
     if (initialLoading) {
         return (
             <div className="weather-display skeleton">
-                <div className="weather-display__left skeleton">
-                    <div className="weather-display__location skeleton-text" />
-                    <div className="weather-display__temp-block skeleton-text" />
-                    <div className="weather-display__stats skeleton-text" />
+                <div className="weather-display__left">
+                    <div className="weather-display__location">
+                        <div className="weather-display__location-name skeleton-text" />
+                        <div className="weather-display__datetime skeleton-text" />
+                    </div>
+                    <div className="weather-display__temp-block">
+                        <div className="weather-display__temp-block-icon">
+                            <div className="weather-display__icon skeleton-text" />
+                            <div className="weather-display__temp-value skeleton-text" />
+                        </div>
+                        <div className="weather-display__feels-like skeleton-text" />
+                    </div>
+                    <div className="weather-display__stats">
+                        {[...Array(5)].map((_, i) => (
+                            <div key={i} className="weather-display__stat skeleton-text" />
+                        ))}
+                    </div>
                 </div>
-                <div className="weather-display__right skeleton">
+                <div className="weather-display__right">
+                    <div className="weather-display__title skeleton-text" />
                     <div className="weather-display__chart skeleton-text" />
-                    <div className="weather-display__forecast skeleton-text" />
+                    <div className="weather-display__forecast">
+                        {[...Array(4)].map((_, i) => (
+                            <div key={i} className="weather-display__forecast-day skeleton-text" />
+                        ))}
+                    </div>
                 </div>
             </div>
         );
     }
+
 
     if (error) {
         return (
@@ -263,13 +285,18 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ city }) => {
                 </div>
 
                 <div className="weather-display__temp-block">
-                    <div className="weather-display__icon">
-                        {weatherData.currentWeatherCode ? getWeatherIcon(weatherData.currentWeatherCode) : <Cloud size={24} />}
+                    <div className="weather-display__temp-block-icon">
+                        <div className="weather-display__icon">
+                            {weatherData.currentWeatherCode ? getWeatherIcon(weatherData.currentWeatherCode) : <Cloud size={24} />}
+                        </div>
+                        <div className="weather-display__temp-value">
+                            {weatherData.currentTemp?.toFixed(1)}
+                        </div>
+                        <div className="weather-display__temp-unit">°C</div>
                     </div>
-                    <div className="weather-display__temp-value">
-                        {weatherData.currentTemp?.toFixed(1)}
+                    <div className="weather-display__feels-like">
+                        Feels like {weatherData.feelsLikeTemperature?.toFixed(1)}°C
                     </div>
-                    <div className="weather-display__temp-unit">°C</div>
                 </div>
 
                 <div className="weather-display__stats">
@@ -299,7 +326,6 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ city }) => {
             <div className="weather-display__right">
                 <div className="weather-display__title">Today's Temperature Forecast</div>
 
-                {/* Chart */}
                 <div className="weather-display__chart">
                     <svg
                         width="100%"
@@ -330,7 +356,6 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ city }) => {
                     </div>
                 </div>
 
-                {/* Upcoming Forecast */}
                 <div className="weather-display__forecast">
                     {forecastDays.map((f) => (
                         <div key={f.day} className="weather-display__forecast-day">

@@ -48,6 +48,7 @@ export interface WeatherData {
   totalPrecipitation: number | null;
   humidity: number | null;
   currentWeatherCode: string | null;
+  feelsLikeTemperature: number | null;
   forecasts: DailyForecast[];
   locationName: string;
 }
