@@ -190,6 +190,7 @@ The backend serves as a proxy to overcome CORS limitations with the external API
 ---
 
 ### `GET /api/logs`
+## i added this endpoint to get all user logs from DB
 
 - **Description:** Retrieves all logged city selections, sorted by newest first.
 - **Response:**
@@ -213,6 +214,7 @@ The backend serves as a proxy to overcome CORS limitations with the external API
 
 - Displays the weather forecast for a selected city.
 - Shows temperature, weather conditions, and forecast for the next 5 days.
+- Hourly Temperature Forecast chart
 
 # TopCities
 
